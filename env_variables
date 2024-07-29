@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    environment {
+        MY_VAR = 'value'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building with MY_VAR=${env.MY_VAR}..."
+                // Insert build commands here
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                // Insert test commands here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // Insert deployment commands here
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Pipeline succeeded.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}

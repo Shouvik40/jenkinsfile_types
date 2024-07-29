@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build and Test') {
+            matrix {
+                axes {
+                    axis {
+                        name 'OS'
+                        values 'Linux', 'Windows'
+                    }
+                    axis {
+                        name 'JDK'
+                        values '8', '11'
+                    }
+                }
+                stages {
+                    stage('Build') {
+                        steps {
+                            echo "Building on ${OS} with JDK ${JDK}..."
+                            // Insert build commands here
+                        }
+                    }
+                    stage('Test') {
+                        steps {
+                            echo "Testing on ${OS} with JDK ${JDK}..."
+                            // Insert test commands here
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Pipeline succeeded.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}
